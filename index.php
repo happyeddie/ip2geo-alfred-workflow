@@ -11,6 +11,7 @@ $result = unserialize(
 if(isset($result['country'])) {
     $items[]    = [
         "title" => "{$result['country']}",
+        "arg"   => "{$result['country']}",
         "subtitle" => "Country",
     ];
 }
@@ -18,6 +19,7 @@ if(isset($result['country'])) {
 if(isset($result['city'])) {
     $items[]    = [
         "title" => "{$result['city']}",
+        "arg"   => "{$result['city']}",
         "subtitle" => "City",
     ];
 }
@@ -25,6 +27,7 @@ if(isset($result['city'])) {
 if(isset($result['lat'])) {
     $items[]    = [
         "title" => "{$result['lat']},{$result['lon']}",
+        "arg"   => "{$result['lat']},{$result['lon']}",
         "subtitle" => "Latlng",
         "quicklookurl" => "https://www.google.com/maps/search/{$result['lat']},{$result['lon']}"
     ];
