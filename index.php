@@ -2,11 +2,9 @@
 $query  = $argv[1];
 $items  = [];
 
-$result = unserialize(
-    file_get_contents(
-        'http://api.ip2geo.pl/php/?ip='.$query
-    )
-);
+$result = json_decode(
+    file_get_contents("https://api.zhoufan.net/geoip/{$query}")
+, true);
 
 if(isset($result['country'])) {
     $items[]    = [
@@ -24,12 +22,28 @@ if(isset($result['city'])) {
     ];
 }
 
-if(isset($result['lat'])) {
+if(isset($result['latitude'])) {
     $items[]    = [
-        "title" => "{$result['lat']},{$result['lon']}",
-        "arg"   => "{$result['lat']},{$result['lon']}",
+        "title" => "{$result['latitude']},{$result['longitude']}",
+        "arg"   => "{$result['latitude']},{$result['longitude']}",
         "subtitle" => "Latlng",
-        "quicklookurl" => "https://www.google.com/maps/search/{$result['lat']},{$result['lon']}"
+        "quicklookurl" => "https://www.google.com/maps/search/{$result['latitude']},{$result['longitude']}"
+    ];
+}
+
+if(isset($result['timezone'])) {
+    $items[]    = [
+        "title" => "{$result['timezone']}",
+        "arg"   => "{$result['timezone']}",
+        "subtitle" => "Timezone",
+    ];
+}
+
+if(isset($result['asnOrganization'])) {
+    $items[]    = [
+        "title" => "{$result['asnOrganization']}",
+        "arg"   => "{$result['asnOrganization']}",
+        "subtitle" => "Organization",
     ];
 }
 
